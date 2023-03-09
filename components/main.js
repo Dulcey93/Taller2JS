@@ -1,12 +1,5 @@
-export default {
-    example() {
-        const numero = 15;
+import Circuit from './Circuit.js';
 
-        // Comprobar si el número es par/impar y si es mayor que 10
-        const resultado = ["es impar", "es par"][numero % 2] + " y " + (numero > 10 ? "es mayor que 10" : "no es mayor que 10");
-
-        console.log(`${numero} ${resultado}`);
-
-    }
-}
-
+const circuit = new Circuit(100, 0.5);
+circuit.calcularVoltaje();
+console.log(`El voltaje del circuito es ${circuit.voltage}V.`);

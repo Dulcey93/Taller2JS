@@ -1,47 +1,25 @@
-const Persona = require("./components/Persona.js");
+import Calculadora from "./components/Calculadora.js";
 
-const personas = [];
+const num1 = parseFloat(prompt('Ingrese el primer número:'));
+const num2 = parseFloat(prompt('Ingrese el segundo número:'));
 
-function crearPersona(index = 1) {
-  const persona = new Persona();
-  persona.nombre = prompt(`Ingresa el nombre de la persona ${index}:`);
+console.log("hola1");
 
-  let edad;
-  while (isNaN(edad)) {
-    try {
-      edad = Number(prompt(`Ingresa la edad de la persona ${index}:`));
-      if (isNaN(edad)) {
-        throw new Error("La edad debe ser un número");
-      }
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
-  persona.edad = edad;
+console.log("hola2");
 
-  personas.push(persona);
-
-  if (personas.length < 3) {
-    crearPersona(personas.length + 1);
+// Método principal para ejecutar el algoritmo
+function ejecutar(num1, num2) {
+  const calculadora = new Calculadora(num1, num2);
+  if (num1>=num2) {
+    console.log(`${num1} es mayor que ${num2}`);
+    calculadora.sumarYRestar(num1, num2);
+  } else {
+    console.log(`${num2} es mayor que ${num1}`);
+    calculadora.multiplicarYDividir(num1, num2);
   }
 }
+ejecutar(num1, num2);
 
-crearPersona();
-// ** ==> Find the older in the array of objects without .reduce() ** <==
-// let mayor = personas[0];
-
-// personas.forEach((persona) => {
-//   mayor = persona.edad > mayor.edad ? persona : mayor;
-// });
-
-// console.log("La persona de mayor edad es:", mayor.nombre);
-
-// ** ==> Find the older in the array of objects USING REDUCE() ** <==
-console.log("Hola");
-const mayor = personas.reduce((personaMayor, personaActual) =>
-  personaActual.edad > personaMayor.edad ? personaActual : personaMayor
-);
-
-console.log("La persona de mayor edad es:", mayor.nombre);
+console.log("hola3");
 
 

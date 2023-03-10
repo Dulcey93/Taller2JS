@@ -1,21 +1,47 @@
-import Circuit from './components/Circuit.js';
+const Persona = require("./components/Persona.js");
 
-try {
-  const resistance = Number(prompt("Ingrese el valor de la resistencia:"));
-  const current = Number(prompt("Ingrese el valor de la corriente:"));
+const personas = [];
 
-  if (!resistance || !current) {
-    throw new Error("Invalid input: resistance and current values must be numbers. Please enter valid numbers for the resistance and current inputs.");
+function crearPersona(index = 1) {
+  const persona = new Persona();
+  persona.nombre = prompt(`Ingresa el nombre de la persona ${index}:`);
+
+  let edad;
+  while (isNaN(edad)) {
+    try {
+      edad = Number(prompt(`Ingresa la edad de la persona ${index}:`));
+      if (isNaN(edad)) {
+        throw new Error("La edad debe ser un número");
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
   }
+  persona.edad = edad;
 
-  const circuit = new Circuit(resistance, current);
-  circuit.calcularVoltaje();
+  personas.push(persona);
 
-  if (circuit.voltage < 0) {
-    throw new Error(`Error: calculated voltage is negative. Please double-check the resistance and current inputs to make sure they're correct.`);
+  if (personas.length < 3) {
+    crearPersona(personas.length + 1);
   }
-
-  console.log(`El voltaje del circuito es ${circuit.voltage}V.`);
-} catch (error) {
-  console.error(error.message);
 }
+
+crearPersona();
+// ** ==> Find the older in the array of objects without .reduce() ** <==
+// let mayor = personas[0];
+
+// personas.forEach((persona) => {
+//   mayor = persona.edad > mayor.edad ? persona : mayor;
+// });
+
+// console.log("La persona de mayor edad es:", mayor.nombre);
+
+// ** ==> Find the older in the array of objects USING REDUCE() ** <==
+console.log("Hola");
+const mayor = personas.reduce((personaMayor, personaActual) =>
+  personaActual.edad > personaMayor.edad ? personaActual : personaMayor
+);
+
+console.log("La persona de mayor edad es:", mayor.nombre);
+
+

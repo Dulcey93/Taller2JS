@@ -1,25 +1,43 @@
-import Calculadora from "./components/Calculadora.js";
+import { Estudiante } from './components/Estudiante.js';
 
-const num1 = parseFloat(prompt('Ingrese el primer número:'));
-const num2 = parseFloat(prompt('Ingrese el segundo número:'));
+const estudiantes = [];
 
-console.log("hola1");
+function agregarEstudiante() {
+  const nombre = prompt("Ingrese el nombre del estudiante:");
+  const sexo = prompt("Ingrese el sexo del estudiante (Hombre/Mujer):");
+  const notaDefinitiva = parseFloat(prompt("Ingrese la nota definitiva del estudiante:"));
 
-console.log("hola2");
-
-// Método principal para ejecutar el algoritmo
-function ejecutar(num1, num2) {
-  const calculadora = new Calculadora(num1, num2);
-  if (num1>=num2) {
-    console.log(`${num1} es mayor que ${num2}`);
-    calculadora.sumarYRestar(num1, num2);
-  } else {
-    console.log(`${num2} es mayor que ${num1}`);
-    calculadora.multiplicarYDividir(num1, num2);
-  }
+  const nuevoEstudiante = new Estudiante(nombre, sexo, notaDefinitiva);
+  estudiantes.push(nuevoEstudiante);
 }
-ejecutar(num1, num2);
 
-console.log("hola3");
+function mostrarResultados() {
+  const estudianteMayorNota = Estudiante.encontrarMayorNota(estudiantes);
+  const estudianteMenorNota = Estudiante.encontrarMenorNota(estudiantes);
+  const { hombres, mujeres } = Estudiante.contarHombresMujeres(estudiantes);
 
+  console.log("Estudiante con la mayor nota:", estudianteMayorNota.nombre);
+  console.log("Estudiante con la menor nota:", estudianteMenorNota.nombre);
+  console.log(`El número de estudiantes hombres es: ${hombres.length}`);
+  console.log(`El número de estudiantes mujeres es: ${mujeres.length}`);
+}
 
+let opcion;
+do {
+  opcion = parseInt(prompt("1. Agregar estudiante\n2. Mostrar resultados\n3. Salir"));
+
+  switch (opcion) {
+    case 1:
+      agregarEstudiante();
+      break;
+    case 2:
+      mostrarResultados();
+      break;
+    case 3:
+      console.log("Adiós!");
+      break;
+    default:
+      console.log("Opción inválida. Por favor, seleccione una opción válida.");
+      break;
+  }
+} while (opcion !== 3);

@@ -1,32 +1,25 @@
-import Atleta from './components/Atleta.js';
+import Sumatoria from './components/Sumatoria.js';
 
-const atletas = [];
+const sumatoria = new Sumatoria();
+
+let numero;
 
 do {
-  console.log('Ingrese el nombre del atleta finalista:');
-  const nombre = prompt('Nombre:');
-
-  console.log(`Ingrese la marca de ${nombre} en metros:`);
-  const marca = parseFloat(prompt('Marca:'));
-
-  const atleta = new Atleta(nombre, marca);
-  atletas.push(atleta);
-
-  const campeona = atletas.reduce((campeona, atleta) => {
-    return atleta.getMarca() > campeona.getMarca() ? atleta : campeona;
-  });
-
-  console.log(`La atleta campeona es ${campeona.getNombre()} con una marca de ${campeona.getMarca()} metros.`);
-
-  const rompioRecord = campeona.getMarca() > 15.5;
-  console.log(`El récord fue ${rompioRecord ? 'roto' : 'no roto'}.`);
-
-  if (rompioRecord) {
-    console.log('La atleta campeona recibirá un pago de 500 millones.');
+  numero = parseInt(prompt('Ingrese un número:'));
+  if (numero !== 0) {
+    sumatoria.agregarNumero(numero);
   }
+} while (numero !== 0);
 
-  const continuar = prompt('¿Desea ingresar los datos de otra atleta? (S/N)').toUpperCase() === 'S';
-  if (!continuar) {
-    console.log('¡Hasta luego!');
-  }
-} while (continuar);
+const sumatoriaTotal = sumatoria.calcularSumatoria();
+const promedio = sumatoria.calcularPromedio();
+const cantidadNumeros = sumatoria.contarNumeros();
+const mayor = sumatoria.encontrarMayor();
+const menor = sumatoria.encontrarMenor();
+
+console.log(`La sumatoria de los valores es: ${sumatoriaTotal}`);
+console.log(`El promedio de los valores es: ${isNaN(promedio) ? 0 : promedio}`);
+console.log(`Se ingresaron ${cantidadNumeros} valores.`);
+console.log(`El mayor valor ingresado es: ${isNaN(mayor) ? 'N/A' : mayor}`);
+console.log(`El menor valor ingresado es: ${isNaN(menor) ? 'N/A' : menor}`);
+
